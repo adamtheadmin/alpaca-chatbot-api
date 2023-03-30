@@ -1,6 +1,6 @@
 # Alpaca Chatbot Restful API
 
-This is a chatbot request queue, and restful API for acessing chatbots. 
+This is a chatbot request queue, and restful API for accessing chatbots. 
 This is designed to work with [alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
 
 Features:
@@ -10,9 +10,9 @@ Features:
 
 ### Enviorment Variables
 
-Required: `CHATBOT_PATH` - The Path to the ./chat executable
+REQUIRED: `CHATBOT_PATH` - The Path to the ./chat executable
 
-Optional: `PORT` - The port to run the restful API and socket.io on. Default: `8080`
+OPTIONAL: `PORT` - The port to run the restful API and socket.io on. Default: `8080`
 
 ### Run
 - Install Typescript
@@ -48,7 +48,7 @@ socket.on("response", ({chunk, id}) => {
     ...
 });
 ```
-When the server is done sending the response, you will get an `endResponse` event with the `id` that was orignally sent in.
+When the server is done sending the response, you will get an `endResponse` event with the `id` that was originally sent in.
 ```
 socket.on("endResponse", ({id}) => {
     ...
