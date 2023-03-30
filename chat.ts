@@ -45,7 +45,7 @@ export default new class {
                 }
             }
             if (this.responseStream) {
-                this.responseStream.push(str.replace('>', ''));
+                this.responseStream.push(str.replace('>', '').replace("\u001b[1m\u001b[32m\u001b[0m", ""));
             }
         });
     }
@@ -55,7 +55,13 @@ export default new class {
         this.ready = false;
         this.process.stdin.write(prompt + '\r\n');
         this.responseStream = useStream ? useStream : new PassThrough();
+        process.stdout.write("A: ");
+        this.responseStream.on('data', chunk => process.stdout.write(chunk));
         return this.responseStream;
+    }
+
+    private cleanseTerminalInput(input: string) :string {
+        return input.replace(/\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g, '').trim();
     }
 
     ask(prompt:string):Readable {
@@ -75,7 +81,7 @@ export default new class {
         let buffer = '';
         stream.on('data', (bit: Buffer) => buffer += bit.toString());
         return new Promise((resolve) => {
-           stream.on('end', () => resolve(buffer.replace(/\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g, '').trim()));
+           stream.on('end', () => resolve(this.cleanseTerminalInput(buffer)));
         });
     }
 }

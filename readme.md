@@ -33,7 +33,27 @@ To use the API, send a POST request to `/chat` with a payload that has a field n
 You should get a response that looks like this:
     
     {"response": "George Washington, who served as the first President of the United States from 1789 to 1797 and again in 1795, passed away at age 64 on December 12th, 1799."}
-    
+
+### Socket.io Usage
+
+To use this with websockets, you should emit a `chat` event to the websocket server 
+with a `prompt` and an `id`. The `id` field will be returned later with responses.
+
+    socket.emit("chat", { prompt: input, id: 'remember me' });
+
+To get the chunks of the response, write some code that looks like this
+
+```
+socket.on("response", ({chunk, id}) => {
+    ...
+});
+```
+When the server is done sending the response, you will get an `endResponse` event with the `id` that was orignally sent in.
+```
+socket.on("endResponse", ({id}) => {
+    ...
+});
+```
 
 ### Licence
 

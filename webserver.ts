@@ -23,10 +23,14 @@ app.post('/chat', async (req: express.Request, res: express.Response) => {
 
 const server = app.listen(port, () => console.log(`Chatbot Listening on port ${port}`));
 
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
     socket.on('chat', ({prompt, id}) => {
         if (typeof prompt != 'string') {
             return socket.emit('error', `Invalid Prompt Type: ${typeof prompt}`);
