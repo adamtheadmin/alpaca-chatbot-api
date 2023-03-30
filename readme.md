@@ -12,7 +12,7 @@ Features:
 
 Required: `CHATBOT_PATH` - The Path to the ./chat executable
 
-Optional: `PORT` - The port to run the restful API and socket.io on. Default: `3000`
+Optional: `PORT` - The port to run the restful API and socket.io on. Default: `8080`
 
 ### Run
 - Install Typescript
