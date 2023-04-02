@@ -26,7 +26,7 @@ OPTIONAL: `PORT` - The port to run the restful API and socket.io on. Default: `8
 - Install as a service, the run command would be `node index.js`. Be sure to have all the proper ENV variables set.
 
 ### API Usage
-To use the API, send a POST request to `/chat` with a payload that has a field named `prompt` that is a string value. example
+To use the API, send a POST request to `/chat` with a payload that has a field named `prompt` that is a string value.
 
     {"prompt": "How old was george washington when he died?"}
 
