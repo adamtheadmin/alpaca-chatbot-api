@@ -64,7 +64,12 @@ export default new class {
         return input.replace(/\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g, '').trim();
     }
 
+    sanitizeInput(input: string): string {
+        return input.replace(/(\r\n|\n|\r)/gm, ' ');
+    }
+
     ask(prompt:string):Readable {
+        prompt = this.sanitizeInput(prompt);
         if (this.ready) {
             return this.sendPrompt(prompt);
         }
